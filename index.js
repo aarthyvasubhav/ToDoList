@@ -21,7 +21,7 @@ app.use(express.static("public"));
 
 
 
-mongoose.connect("mongodb+srv://Aarthy:Asap1127@cluster0.cgq53cb.mongodb.net/ToDoListDB")
+
 
   // const itemSchema = new mongoose.Schema({
   // name: string
@@ -155,7 +155,8 @@ const customListName = _.capitalize(req.params.toDolistName);
 
 
 
-
-app.listen(3000,function(){
-    console.log("Server started on port 3000");
+mongoose.connect("mongodb+srv://Aarthy:Asap1127@cluster0.cgq53cb.mongodb.net/ToDoListDB").then(() => {
+  app.listen(PORT 3000,function(){
+      console.log("Server started on port 3000 ${PORT}");
+  });
 });
