@@ -156,7 +156,7 @@ const customListName = _.capitalize(req.params.toDolistName);
 
 
 mongoose.connect("mongodb+srv://Aarthy:Asap1127@cluster0.cgq53cb.mongodb.net/ToDoListDB").then(() => {
-  app.listen(PORT 3000,function(){
+  app.listen(PORT,function(){
       console.log("Server started on port 3000 ${PORT}");
   });
 });
