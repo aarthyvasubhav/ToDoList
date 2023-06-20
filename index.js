@@ -1,6 +1,7 @@
 //jshint esversion:6
 //new version of mongod no need loadash
 //const _ = require('loadash');
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -13,12 +14,23 @@ const _ = require('lodash');
 
 const app = express();
 app.set('view engine', 'ejs');
-
+const PORT = process.env.PORT || 3000;
 //app.set("view engine", "ejs"); // this line should placed below app=express() not above of that.
+//to avoid warnings mongoose.set
+
+mongoose.set('strictQuery', false);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log('MongoDB Connected: ${conn.connection.host});
+  } catch (e) {
+    console.log(e);
+    process.exit(1);
+  }
+}
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-
 
 
 
@@ -155,8 +167,8 @@ const customListName = _.capitalize(req.params.toDolistName);
 
 
 
-mongoose.connect("mongodb+srv://Aarthy:Asap1127@cluster0.cgq53cb.mongodb.net/ToDoListDB").then(() => {
-  app.listen(PORT,function(){
-      console.log("Server started on port 3000 ${PORT}");
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log('Server started on port 3000 ${PORT}');
   });
 });
